@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 
 const PORT = process.env.PORT || 3000;
+const FRED_API_KEY = process.env.FRED_API_KEY;
 
 const app = express();
 app.use(cors());

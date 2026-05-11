@@ -1,12 +1,11 @@
 {
   "name": "myfred",
   "version": "1.0.0",
+  "private": true,
   "description": "",
   "main": "index.js",
   "scripts": {
-    "frontend": "npm run dev --prefix server",
-    "backend": "npm run dev --prefix client",
-    "dev": "concurrently \"npm run frontend\" \"npm run client\""
+    "dev": "concurrently \"npm run dev -w frontend\" \"npm run dev -w backend\""
   },
   "workspaces": [
     "frontend",
@@ -20,6 +19,7 @@
     "concurrently": "^9.2.1",
     "eslint": "^10.3.0",
     "@eslint/js": "^10.0.1",
+    "globals": "^17.6.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2"
   }

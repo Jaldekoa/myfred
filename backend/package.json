@@ -5,10 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start": "node --env-file=.env src/index.js",
-    "dev": "node --env-file=.env --watch-path=./src  --watch src/index.js"
+    "dev": "node --env-file=.env  --watch src/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1"
+  }
 }
