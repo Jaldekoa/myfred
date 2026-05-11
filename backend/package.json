@@ -1,0 +1,14 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --env-file=.env src/index.js",
+    "dev": "node --env-file=.env --watch-path=./src  --watch src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "type": "module"
+}
