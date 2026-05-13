@@ -2,10 +2,13 @@ import { constructURL } from "./utils.js";
 import express from "express";
 import cors from "cors";
 
-const { PORT } = process.env;
+const { FRONTEND_PORT, BACKEND_PORT } = process.env;
 
 const corsOptions = {
-  origin: ["https://dashboard.dineroybanca.com", `http://localhost:${PORT}`],
+  origin: [
+    "https://dashboard.dineroybanca.com",
+    `http://localhost:${FRONTEND_PORT}`,
+  ],
   methods: ["GET", "POST"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
@@ -27,10 +30,10 @@ app.get("/api/:series_id", async (req, res) => {
 
     res.json(data);
   } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: "Error calling to external API." });
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(BACKEND_PORT, () => {
+  console.log(`Server is running on port ${BACKEND_PORT}`);
 });
