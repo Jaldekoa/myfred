@@ -13,4 +13,23 @@ function constructURL(req) {
   return `${FRED_API_URL}?${params.toString()}`;
 }
 
-export { constructURL };
+function filterParams(req) {
+  const allowedParams = [
+    "observation_start",
+    "observation_end",
+    "units",
+    "frequency",
+    "aggregation_method",
+  ];
+
+  const filteredQuery = Object.keys(req.query)
+    .filter((key) => allowedParams.includes(key))
+    .reduce((obj, key) => {
+      obj[key] = req.query[key];
+      return obj;
+    }, {});
+
+  return filteredQuery;
+}
+
+export { constructURL, filterParams };
