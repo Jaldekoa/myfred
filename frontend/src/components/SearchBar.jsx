@@ -1,5 +1,6 @@
 import { useSearch } from "../hooks/useSearch";
 import { useState } from "react";
+import { Toaster, toast } from "sonner";
 
 export default function SearchBar() {
   const [inputValue, setInputValue] = useState("");
@@ -13,7 +14,7 @@ export default function SearchBar() {
   return (
     <section>
       <h1>
-        Dinero y <span>Banca</span>
+        Mi <span>App</span>
       </h1>
 
       <article>
@@ -24,9 +25,11 @@ export default function SearchBar() {
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={(e) => handleSearch()}
         />
+        <Toaster />
         <button
           type="button"
           onClick={() => {
+            toast.error("Hello from Sonner");
             handleSearch;
           }}
           aria-label="Search"
