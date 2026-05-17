@@ -6,7 +6,7 @@ const BACKEND_PORT = import.meta.env.VITE_BACKEND_PORT;
 function useSearch(series_id, queryParams = {}) {
   const [series, setSeries] = useState({});
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!series_id) return;
