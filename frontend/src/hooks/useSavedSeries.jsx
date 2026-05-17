@@ -21,7 +21,7 @@ function useSavedSeries() {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(savedSeries));
   }, [savedSeries]);
 
-  const saveSeries = useCallback((seriesId) => {
+  const saveSeries = useCallback((seriesId, data) => {
     setSavedSeries((currentSeries) => {
       const normalizedSeriesId = seriesId.trim().toUpperCase();
       const nextSeries = currentSeries.filter(
@@ -29,7 +29,11 @@ function useSavedSeries() {
       );
 
       return [
-        { seriesId: normalizedSeriesId, savedAt: new Date().toISOString() },
+        {
+          seriesId: normalizedSeriesId,
+          savedAt: new Date().toISOString(),
+          data,
+        },
         ...nextSeries,
       ];
     });
