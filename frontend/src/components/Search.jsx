@@ -1,31 +1,25 @@
 import { useState } from "react";
 
 export default function Search({ onSearch }) {
-  const [inputValue, setInputValue] = useState("");
   const [seriesId, setSeriesId] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (!inputValue.trim()) return;
+    const normalizedSeriesId = seriesId.trim().toUpperCase();
+    if (!normalizedSeriesId) return;
 
-    const params = {
-      series_id: seriesId.toUpperCase().trim(),
-      file_type: "json",
-    };
-
-    onSearch(params);
+    onSearch(normalizedSeriesId);
+    setSeriesId(normalizedSeriesId);
   };
 
   return (
     <form onSubmit={handleSubmit} className="search-form">
       <input
         type="text"
-        placeholder="Search data..."
+        placeholder="GDP, UNRATE, CPIAUCSL..."
         value={seriesId}
-        onChange={(event) => {
-          seriesId(event.target.value);
-        }}
+        onChange={(event) => setSeriesId(event.target.value)}
       />
       <button type="submit">Buscar</button>
     </form>
