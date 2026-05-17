@@ -1,21 +1,12 @@
-import SearchBar from "./components/SearchBar";
+import Dashboard from "./components/Dashboard";
+import Header from "./components/Header";
 import "./App.css";
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
-
-const queryClient = new QueryClient();
 
 function App() {
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        <SearchBar />
-      </QueryClientProvider>
+      <Header />
+      <Dashboard />
     </>
   );
 }
