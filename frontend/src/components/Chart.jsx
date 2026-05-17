@@ -22,7 +22,7 @@ ChartJS.register(
   Filler,
 );
 
-function buildChartData(data, seriesId) {
+function buildChartData(data, seriesId, compact = false) {
   const observations = data?.observations ?? [];
   const validObservations = observations.filter(
     (observation) => observation.value !== "." && !Number.isNaN(Number(observation.value)),
@@ -36,47 +36,63 @@ function buildChartData(data, seriesId) {
         data: validObservations.map((observation) => Number(observation.value)),
         borderColor: "#990F3D",
         backgroundColor: "rgba(153, 15, 61, 0.1)",
-        borderWidth: 2,
+        borderWidth: compact ? 1.8 : 2,
         pointRadius: 0,
-        tension: 0.2,
-        fill: true,
+        tension: 0.25,
+        fill: !compact,
       },
     ],
   };
 }
 
-const chartOptions = {
-  responsive: true,
-  maintainAspectRatio: false,
-  interaction: {
-    mode: "index",
-    intersect: false,
-  },
-  plugins: {
-    legend: {
-      display: true,
+function buildChartOptions(compact = false) {
+  return {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: {
+      mode: "index",
+      intersect: false,
     },
-    title: {
-      display: false,
-    },
-  },
-  scales: {
-    x: {
-      ticks: {
-        maxTicksLimit: 8,
+    plugins: {
+      legend: {
+        display: !compact,
+      },
+      title: {
+        display: false,
+      },
+      tooltip: {
+        enabled: !compact,
       },
     },
-    y: {
-      beginAtZero: false,
+    scales: {
+      x: {
+        display: !compact,
+        ticks: {
+          maxTicksLimit: 8,
+        },
+      },
+      y: {
+        display: !compact,
+        beginAtZero: false,
+      },
     },
-  },
-};
+  };
+}
 
-export default function Chart({ data, seriesId }) {
-  const chartData = buildChartData(data, seriesId);
+export default function Chart({ data, seriesId, compact = false }) {
+  const chartData = buildChartData(data, seriesId, compact);
+  const chartOptions = buildChartOptions(compact);
 
   if (!chartData.labels.length) {
     return <p>No hay observaciones numericas para {seriesId}.</p>;
+  }
+
+  if (compact) {
+    return (
+      <div className="mini-chart-wrapper">
+        <Line data={chartData} options={chartOptions} />
+      </div>
+    );
   }
 
   return (
