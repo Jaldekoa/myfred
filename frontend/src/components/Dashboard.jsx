@@ -1,27 +1,41 @@
-import { useQuery } from "@tanstack/react-query";
 import ChartContainer from "./ChartContainer";
 import Search from "./Search";
 import { useState } from "react";
+import SavedSeriesList from "./SavedSeriesList";
+import { useSavedSeries } from "../hooks/useSavedSeries";
+import { Toaster } from "sonner";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-const BACKEND_PORT = import.meta.env.VITE_BACKEND_PORT;
+export default function Dashboard() {
+  const [currentSeriesId, setCurrentSeriesId] = useState("");
+  const { savedSeries, saveSeries, removeSeries } = useSavedSeries();
 
-export default function Dashboard(series_id, queryString) {
-  const [searchParams, setParams] = useState(null);
-
-  const handleSearch = (seriesId, queryString) => {
-    setSearchParams({ seriesId, queryString });
+  const handleSearch = (seriesId) => {
+    setCurrentSeriesId(seriesId);
   };
 
   return (
-    <>
+    <main className="dashboard">
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          className: "app-toast",
+          duration: 3000,
+        }}
+      />
       <Search onSearch={handleSearch} />
-      {searchParams && (
+
+      {currentSeriesId && (
         <ChartContainer
-          seriesId={searchParams.seriesId}
-          queryString={queryString}
+          seriesId={currentSeriesId}
+          onSeriesLoaded={saveSeries}
         />
       )}
-    </>
+
+      <SavedSeriesList
+        savedSeries={savedSeries}
+        onSelect={handleSearch}
+        onRemove={removeSeries}
+      />
+    </main>
   );
 }
