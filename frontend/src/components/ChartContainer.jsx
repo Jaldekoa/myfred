@@ -31,7 +31,7 @@ export default function ChartContainer({ seriesId, queryString = "", onSeriesLoa
 
   useEffect(() => {
     if (data?.observations?.length) {
-      onSeriesLoaded(seriesId);
+      onSeriesLoaded(seriesId, data);
     }
   }, [data, onSeriesLoaded, seriesId]);
 
