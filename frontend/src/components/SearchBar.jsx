@@ -1,5 +1,4 @@
 import { useSearch } from "../hooks/useSearch";
-import Title from "./Title";
 import { useEffect, useState, useRef } from "react";
 import { Toaster, toast } from "sonner";
 
@@ -28,7 +27,7 @@ export default function SearchBar() {
         toast.error(`Error: ${error}`);
       }
     }
-  }, [loading, error]);
+  }, [loading, error, searchId]);
 
   return (
     <form>
