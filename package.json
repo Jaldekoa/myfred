@@ -5,7 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "pnpm --filter \"./frontend\" --filter \"./backend\" --parallel run dev"
+    "dev": "concurrently \"npm run dev -w frontend\" \"npm run dev -w backend\""
   },
   "workspaces": [
     "frontend",
