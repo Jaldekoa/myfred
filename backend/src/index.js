@@ -2,6 +2,7 @@ import { constructURL } from "./utils.js";
 import express from "express";
 import cors from "cors";
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 const { FRONTEND_PORT, BACKEND_PORT } = process.env;
 
 const corsOptions = {
