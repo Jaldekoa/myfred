@@ -26,14 +26,9 @@ app.use(express.json());
 app.get("/api/:series_id", async (req, res) => {
   try {
     const url = constructURL(req);
-    console.log("Calling FRED:", url);
 
     const response = await fetch(url, headers);
-    console.log("FRED status:", response.status, response.statusText);
-
     const text = await response.text();
-    console.log("FRED raw response:", text.slice(0, 500));
-
     const data = JSON.parse(text);
 
     if (!response.ok) {
@@ -42,7 +37,6 @@ app.get("/api/:series_id", async (req, res) => {
 
     res.json(data);
   } catch (error) {
-    console.error("Backend error:", error);
     res.status(500).json({
       error: error.message,
       code: error?.cause?.code || error?.code,
